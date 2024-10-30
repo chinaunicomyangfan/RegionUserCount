@@ -211,51 +211,29 @@ components:
         - If no filtering is required, this parameter does not need to be provided.
         For example ,`"filter":{"roamingStatus": ["roaming"],"deviceType": ["human device","IoT device"]}` means the API need to return the count of human network devices and IoT devices that are in roaming mode.`"filter":{"roamingStatus": ["non-roaming"]}` means that the API need to return the count of all devices that are not in roaming mode.
       type: object
-      anyOf:
-        - type: object
-          properties: 
-            roamingStatus: 
-              description: Filter whether the device is in roaming mode,'roaming' represents the need to filter devices that are in roaming mode,'non-roaming' represents the need to filter devices that are not roaming.
-              type: array
-              items:
-                type: string
-                enum:
-                  - 'roaming'
-                  - 'non-roaming'
-              minItems: 1
-        - type: object
-          properties: 
-            deviceType: 
-              description: Filtering by device type, 'human device' represents the need to filter for human network devices, 'IoT device' represents the need to filter for IoT devices, and 'other' represents the need to filter for other types of devices.
-              type: array
-              items:
-                type: string
-                enum:
-                  - 'human device'
-                  - 'IoT device'
-                  - 'other'
-              minItems: 1
-        - type: object
-          properties: 
-            roamingStatus: 
-              description: Filter whether the device is in roaming mode,'roaming' represents the need to filter devices that are in roaming mode,'non-roaming' represents the need to filter devices that are not roaming.
-              type: array
-              items:
-                type: string
-                enum:
-                  - 'roaming'
-                  - 'non-roaming'
-              minItems: 1
-            deviceType: 
-              description: Filtering by device type, 'human device' represents the need to filter for human network devices, 'IoT device' represents the need to filter for IoT devices, and 'other' represents the need to filter for other types of devices.
-              type: array
-              items:
-                type: string
-                enum:
-                  - 'human device'
-                  - 'IoT device'
-                  - 'other'
-              minItems: 1
+      properties: 
+        roamingStatus: 
+          description: Filter whether the device is in roaming mode,'roaming' represents the need to filter devices that are in roaming mode,'non-roaming' represents the need to filter devices that are not roaming.
+          type: array
+          items:
+            type: string
+            enum:
+              - 'roaming'
+              - 'non-roaming'
+          minItems: 1
+        deviceType: 
+          description: Filtering by device type, 'human device' represents the need to filter for human network devices, 'IoT device' represents the need to filter for IoT devices, and 'other' represents the need to filter for other types of devices.
+          type: array
+          items:
+            type: string
+            enum:
+              - 'human device'
+              - 'IoT device'
+              - 'other'
+          minItems: 1
+      oneOf:
+      - required: ['roamingStatus']
+      - required: ['deviceType']
     RegionDeviceCountResponse:
       type: object
       description: RegionDeviceCount result
