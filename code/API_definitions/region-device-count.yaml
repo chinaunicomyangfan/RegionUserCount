@@ -97,6 +97,55 @@ paths:
                 LOCATION_POLYGON:
                   $ref: "#/components/examples/RETRIEVAL_POLYGON"
         required: true
+      callbacks:
+        regionDeviceCountCallback:
+          '{$request.body#/sink}':
+            post:
+              tags:
+                - Region Device Count
+              summary: 'Region Device Count Callback'
+              description: |
+                Important: this endpoint is to be implemented by the API consumer.
+                The Region Device Count server will call this endpoint when the request result is ready.
+              operationId: postNotification
+              parameters:
+                - $ref: '#/components/parameters/x-correlator'
+              requestBody:
+                description: Region device count result.
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/RegionDeviceCountResponse'
+                    examples:
+                      SUPPORTED_AREA:
+                        $ref: "#/components/examples/SUPPORTED_AREA"
+                      PART_OF_AREA_NOT_SUPPORTED:
+                        $ref: "#/components/examples/PART_OF_AREA_NOT_SUPPORTED"
+                      AREA_NOT_SUPPORTED:
+                        $ref: "#/components/examples/AREA_NOT_SUPPORTED"
+                      DENSITY_BELOW_PRIVACY_THRESHOLD:
+                        $ref: "#/components/examples/DENSITY_BELOW_PRIVACY_THRESHOLD"
+              responses:
+                '204':
+                  description: Successful notification
+                  headers:
+                    x-correlator:
+                      $ref: '#/components/headers/x-correlator'
+                '400':
+                  $ref: '#/components/responses/Generic400'
+                '401':
+                  $ref: '#/components/responses/Generic401'
+                '403':
+                  $ref: '#/components/responses/Generic403'
+                '500':
+                  $ref: '#/components/responses/Generic500'
+                '503':
+                  $ref: '#/components/responses/Generic503'
+                '504':
+                  $ref: '#/components/responses/Generic504'
+              security:
+                - {}
+                - notificationsBearerAuth: []
       responses:
         '200':
           description: OK
@@ -655,6 +704,10 @@ components:
               longitude: 4.860374
             - latitude: 45.753845
               longitude: 4.863185
+            - latitude: 45.753916
+              longitude: 4.866531
+            - latitude: 45.754116
+              longitude: 4.876353
         starttime: "2023-07-03T14:27:08.312+02:00"
         endtime: "2023-07-04T14:27:08.312+02:00"
         filter:
