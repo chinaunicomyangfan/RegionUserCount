@@ -1,8 +1,57 @@
 openapi: 3.0.3
 info:
   title: Region Device Count
-  description: |
+  description: >-
+    Region Device Count API enables API consumers to obtain the number of devices within a certain geographical area during a specific time interval.
+
+    # Introduction
+  
     This API allows for the API Consumer to query device count in the specified area during a certain time interval.The query area can be a circle or a polygon composed of longitude and latitude points.
+    This functionality can be used for multiple use cases, some of the possible use cases for this API are:
+    
+    - [Emergency Rescue](https://github.com/camaraproject/RegionDeviceCount/blob/main/documentation/API_documentation/RDC_User_Story_Emergency%20Rescue.md)
+    
+    - [Outdoor Live Streaming](https://github.com/camaraproject/RegionDeviceCount/blob/main/documentation/API_documentation/RDC_User_Story_Outdoor%20Live%20Streaming.md)
+    
+    # Relevant terms and definitions
+    
+    * **Device Count**: Refers to the total number of devices that appear within a given area and a specific time interval. A device will be counted as long as it appears at least once in the specified area during the time interval.
+
+    * **Notification URL and token**: Developers may provide a callback URL (`sink`) for receiving an async response. This is an optional parameter. If `sink` is included, it is RECOMMENDED for the client to provide as well the `sinkCredential` property to protect the notification endpoint. In the current version,`sinkCredential.credentialType` MUST be set to `ACCESSTOKEN` if provided.
+    
+    # API Functionality
+  
+    ## Request Parameters and Area Definition
+    
+    When making a request, the API consumer needs to specify the area, start time, end time, and filter conditions in the request body. The area can be defined as a circle or a polygon. For a circular area, the center and radius must be provided; for a polygon area, a list of longitude and latitude points must be provided. If the start and end times are not provided, the API will return the current number of devices in the area.
+    
+    ## Filter Condition Application
+    
+    The filter condition is used for precise device filtering and currently includes two filtering criteria: `roamingStatus` and `deviceType`, with support for future expansion. The `IN` logic is applied for multiple filter items within a single filtering criterion, and the `AND` logic is used between multiple filtering criteria.
+    
+    
+    For example, "filter":{"roamingStatus": ["roaming"],"deviceType": ["human device","IoT device"]}" means the API will only return the number of human network devices and IoT devices in roaming mode. "filter":{"roamingStatus": ["non-roaming"]}" will return the number of all non-roaming devices. Note that at least one filtering criterion must be provided; otherwise, the request will be invalid.
+    
+    ## Response Result Explanation
+    
+    The API response returns a RegionDeviceCountResponse object containing the device count and status. The status values include `SUPPORTED_AREA` (the entire requested area is supported, and the device count for the entire area is returned, with 100% telecom coverage), `PART_OF_AREA_NOT_SUPPORTED` (part of the area is outside the telecom operator's coverage area, and only the device count within the coverage area is returned, with 50% <= telecom coverage < 100%), `AREA_NOT_SUPPORTED` (the entire requested area has no telecom coverage, and no data is returned, with telecom coverage < 50%), `DENSITY_BELOW_PRIVACY_THRESHOLD` (the number of connected devices in the area is below the local regulatory privacy threshold), and `TIME_INTERVAL_NO_DATA_FOUND` (no device count data is found within the requested time interval).
+    
+    ## Callback Function
+    
+    The standard behaviour of the API is synchronous, although for large area requests the API may behave asynchronously. An API invoker can enforce asynchronous behaviour by providing a callback URL (`sink`)
+    is in the request, in this case the API sends a callback to the callback URL provided with the result of the request. If `sink` is included, it is RECOMMENDED for the client to provide as well the `sinkCredential` property to protect the notification endpoint. In the current version,`sinkCredential.credentialType` MUST be set to `ACCESSTOKEN` if provided.
+    
+    For requests with a combination of area, startTime and endTime properties involving an amount of processing that cannot be processed synchronously, the API returns the error response REGION_DEVICE_COUNT.UNSUPPORTED_SYNC_RESPONSE.
+
+    For requests with a combination of area, startTime and endTime properties too big for both synchronous and asynchronous processing, the API returns the error response REGION_DEVICE_COUNT.UNSUPPPORTED_REQUEST.
+    
+
+    # Authorization and Authentication
+    
+    Region Device Count API does not involve the input and output of user personal data.Therefore, the access to Region Device Count APII is defined as `Client Credentials - 2-legged`. Please refer to [Identify and Consent Management](https://github.com/camaraproject/IdentityAndConsentManagement/) for the latest detailed specification of this authentication/authorization flow.
+    
+    
+  
   version: wip
   contact:
     email: sp-ruc@lists.camaraproject.org
@@ -120,6 +169,15 @@ components:
           example: "2023-07-04T14:27:08.312+02:00"
         filter: 
           $ref: "#/components/schemas/Filter"
+        sink:
+          type: string
+          format: url
+          description: The URL where the API response will be asynchronously delivered, using the HTTP protocol.
+          example: 'https://endpoint.example.com/sink'
+        sinkCredential:
+          description: A sink credential provides authentication or authorization information necessary to enable delivery of events to a target.
+          allOf:
+            - $ref: '#/components/schemas/SinkCredential'
     Area:
       type: object
       properties:
@@ -234,6 +292,95 @@ components:
       oneOf:
       - required: ['roamingStatus']
       - required: ['deviceType']
+    SinkCredential:
+      type: object
+      properties:
+        credentialType:
+          type: string
+          enum:
+            - PLAIN
+            - ACCESSTOKEN
+            - REFRESHTOKEN
+          description: 'The type of the credential. With the current API version the type MUST be set to `ACCESSTOKEN`'
+      discriminator:
+        propertyName: credentialType
+        mapping:
+          PLAIN: '#/components/schemas/PlainCredential'
+          ACCESSTOKEN: '#/components/schemas/AccessTokenCredential'
+          REFRESHTOKEN: '#/components/schemas/RefreshTokenCredential'
+      required:
+        - credentialType
+    PlainCredential:
+      type: object
+      description: A plain credential as a combination of an identifier and a secret.
+      allOf:
+        - $ref: '#/components/schemas/SinkCredential'
+        - type: object
+          required:
+            - identifier
+            - secret
+          properties:
+            identifier:
+              description: The identifier might be an account or username.
+              type: string
+            secret:
+              description: The secret might be a password or passphrase.
+              type: string
+    AccessTokenCredential:
+      type: object
+      description: An access token credential.
+      allOf:
+        - $ref: '#/components/schemas/SinkCredential'
+        - type: object
+          properties:
+            accessToken:
+              description: REQUIRED. An access token is a previously acquired token granting access to the target resource.
+              type: string
+            accessTokenExpiresUtc:
+              type: string
+              format: date-time
+              description: REQUIRED. An absolute UTC instant at which the token shall be considered expired.
+            accessTokenType:
+              description: REQUIRED. Type of the access token (See [OAuth 2.0](https://tools.ietf.org/html/rfc6749#section-7.1)). For the current version of the API the type MUST be set to `Bearer`.
+              type: string
+              enum:
+                - bearer
+          required:
+            - accessToken
+            - accessTokenExpiresUtc
+            - accessTokenType
+    RefreshTokenCredential:
+      type: object
+      description: An access token credential with a refresh token.
+      allOf:
+        - $ref: '#/components/schemas/SinkCredential'
+        - type: object
+          properties:
+            accessToken:
+              description: REQUIRED. An access token is a previously acquired token granting access to the target resource.
+              type: string
+            accessTokenExpiresUtc:
+              type: string
+              format: date-time
+              description: REQUIRED. An absolute UTC instant at which the token shall be considered expired.
+            accessTokenType:
+              description: REQUIRED. Type of the access token (See [OAuth 2.0](https://tools.ietf.org/html/rfc6749#section-7.1)).
+              type: string
+              enum:
+                - bearer
+            refreshToken:
+              description: REQUIRED. An refresh token credential used to acquire access tokens.
+              type: string
+            refreshTokenEndpoint:
+              type: string
+              format: uri
+              description: REQUIRED. A URL at which the refresh token can be traded for an access token.
+      required:
+        - accessToken
+        - accessTokenExpiresUtc
+        - accessTokenType
+        - refreshToken
+        - refreshTokenEndpoint
     RegionDeviceCountResponse:
       type: object
       description: RegionDeviceCount result
@@ -319,6 +466,26 @@ components:
                 status: 400
                 code: REGION_DEVICE_COUNT.INVALID_POLYGON_AREA
                 message: "The area is not a polygon shape or has an arbitrary complexity."
+            GENERIC_400_INVALID_CREDENTIAL:
+              value:
+                status: 400
+                code: "INVALID_CREDENTIAL"
+                message: "Only Access token is supported"
+            GENERIC_400_INVALID_TOKEN:
+              value:
+                status: 400
+                code: "INVALID_TOKEN"
+                message: "Only bearer token is supported"
+            GENERIC_400_UNSUPPORTED_SYNC_RESPONSE:
+              value:
+                status: 400
+                code: REGION_DEVICE_COUNT.UNSUPPORTED_SYNC_RESPONSE
+                message: "Indicated combination of area or time interval is too big for a sync response"
+            GENERIC_400_UNSUPPORTED_REQUEST:
+              value:
+                status: 400
+                code: REGION_DEVICE_COUNT.UNSUPPPORTED_REQUEST
+                message: "Indicated combination of area or time interval is too big"
             
     Generic401:
       description: Unauthorized
@@ -473,6 +640,12 @@ components:
         filter:
           roamingStatus: ["roaming"]
           deviceType: ["human device","IoT device"]
+        sink: https://endpoint.example.com/sink
+        sinkCredential:
+          credentialType: ACCESSTOKEN
+          accessToken: "yJ2ZXIiOiIxLjAiLCJ0eXAiO..."
+          accessTokenExpiresUtc: "1717753038"
+          accessTokenType: "bearer"
     RETRIEVAL_POLYGON:
       value:
         area:
@@ -487,6 +660,12 @@ components:
         filter:
           roamingStatus: ["non-roaming"]
           deviceType: ["other"]
+        sink: https://endpoint.example.com/sink
+        sinkCredential:
+          credentialType: ACCESSTOKEN
+          accessToken: "yJ2ZXIiOiIxLjAiLCJ0eXAiO..."
+          accessTokenExpiresUtc: "1717753038"
+          accessTokenType: "bearer"
     SUPPORTED_AREA:
       value:
         count: 100
