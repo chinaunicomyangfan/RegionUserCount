@@ -19,6 +19,12 @@ The API definition(s) are based on
 
 
 # v0.1.0
+# region-device-count v0.1.0-rc.1
+
+ API definition **with inline documentation**:
+[[YAML]](https://github.com/camaraproject/RegionDeviceCount/blob/r1.1/code/API_definitions/region-device-count.yaml)
+[[View it on ReDoc]](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/RegionDeviceCount/r1.1/code/API_definitions/region-device-count.yaml&nocors)
+[[View it on Swagger Editor]](https://editor.swagger.io/?url=https://raw.githubusercontent.com/camaraproject/RegionDeviceCount/r1.1/code/API_definitions/region-device-count.yaml)
 
 **Initial contribution of API definitions for Region Device Count**, including initial documentation and implementation code.
 
