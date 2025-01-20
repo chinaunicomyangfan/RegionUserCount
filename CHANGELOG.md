@@ -1,8 +1,26 @@
 # Changelog Region Device Count
 
-# r0.1
+## Table of Contents
+- **[r1.1](#r11)**
+- [v0.1.0](#v010)
 
-**Initial contribution of two API definitions for Region Device Count**, including initial documentation and implementation code.
+**Please be aware that the project will have frequent updates to the main branch. There are no compatibility guarantees associated with code in any branch, including main, until it has been released. For example, changes may be reverted before a release is published. For the best results, use the latest published release.**
+
+
+# r1.1
+## Release Notes
+
+This public release contains the definition and documentation of
+* region-device-count v0.1.0
+
+The API definition(s) are based on
+* Commonalities v0.4.0
+* Identity and Consent Management v0.2.1
+
+
+# v0.1.0
+
+**Initial contribution of API definitions for Region Device Count**, including initial documentation and implementation code.
 
 ## What's Changed
 * Initial yaml file including regionUserCount api in https://github.com/camaraproject/RegionDeviceCount/pull/5
