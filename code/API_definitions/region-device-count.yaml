@@ -53,16 +53,15 @@ info:
     
   
   version: 0.1.0-rc.1
-  contact:
-    email: sp-ruc@lists.camaraproject.org
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
+  x-camara-commonalities: 0.5
 externalDocs:
   description: Project documentation at CAMARA
   url: https://github.com/camaraproject/RegionDeviceCount
 servers:
-  - url: '{apiRoot}/regionDeviceCount/r1.1'
+  - url: '{apiRoot}/region-device-count/v0.1rc1'
     variables:
       apiRoot:
         default: http://localhost:9091
@@ -137,12 +136,12 @@ paths:
                   $ref: '#/components/responses/Generic401'
                 '403':
                   $ref: '#/components/responses/Generic403'
-                '500':
-                  $ref: '#/components/responses/Generic500'
-                '503':
-                  $ref: '#/components/responses/Generic503'
-                '504':
-                  $ref: '#/components/responses/Generic504'
+                '404':
+                  $ref: '#/components/responses/Generic404'
+                '410':
+                  $ref: '#/components/responses/Generic410'
+                '429':
+                  $ref: '#/components/responses/Generic429'
               security:
                 - {}
                 - notificationsBearerAuth: []
@@ -171,8 +170,20 @@ paths:
           $ref: '#/components/responses/Generic401'
         '403':
           $ref: '#/components/responses/Generic403'
+        '404':
+          $ref: '#/components/responses/Generic404'
+        '405':
+          $ref: '#/components/responses/Generic405'
+        '406':
+          $ref: '#/components/responses/Generic406'
+        '429':
+          $ref: '#/components/responses/Generic429'
         '500':
           $ref: '#/components/responses/Generic500'
+        '501':
+          $ref: '#/components/responses/Generic501'
+        '502':
+          $ref: '#/components/responses/Generic502'
         '503':
           $ref: '#/components/responses/Generic503'
         '504':
@@ -486,10 +497,26 @@ components:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/ErrorInfo"
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 400
+                  code:
+                    enum:
+                      - INVALID_ARGUMENT
+                      - REGION_DEVICE_COUNT.TIME_INVALID_ARGUMENT
+                      - REGION_DEVICE_COUNT.INVALID_END_DATE
+                      - REGION_DEVICE_COUNT.INVALID_CIRCLE_AREA
+                      - REGION_DEVICE_COUNT.INVALID_POLYGON_AREA
+                      - INVALID_CREDENTIAL
+                      - INVALID_TOKEN
+                      - REGION_DEVICE_COUNT.UNSUPPORTED_SYNC_RESPONSE
+                      - REGION_DEVICE_COUNT.UNSUPPPORTED_REQUEST
           examples:
             GENERIC_400_INVALID_ARGUMENT:
-              summary: Generic Invalid Argument
               description: Invalid Argument. Generic Syntax Exception
               value:
                 status: 400
@@ -518,12 +545,12 @@ components:
             GENERIC_400_INVALID_CREDENTIAL:
               value:
                 status: 400
-                code: "INVALID_CREDENTIAL"
+                code: INVALID_CREDENTIAL
                 message: "Only Access token is supported"
             GENERIC_400_INVALID_TOKEN:
               value:
                 status: 400
-                code: "INVALID_TOKEN"
+                code: INVALID_TOKEN
                 message: "Only bearer token is supported"
             GENERIC_400_UNSUPPORTED_SYNC_RESPONSE:
               value:
@@ -544,7 +571,17 @@ components:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/ErrorInfo"
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 401
+                  code:
+                    enum:
+                      - UNAUTHENTICATED
+                      - AUTHENTICATION_REQUIRED
           examples:
             GENERIC_401_UNAUTHENTICATED:
               description: Request cannot be authenticated
@@ -559,20 +596,37 @@ components:
                 code: AUTHENTICATION_REQUIRED
                 message: New authentication is required.
     Generic403:
-      description: Client does not have sufficient permission
+      description: Forbidden
       headers:
         x-correlator:
           $ref: "#/components/headers/x-correlator"
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ErrorInfo'
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 403
+                  code:
+                    enum:
+                      - PERMISSION_DENIED
+                      - INVALID_TOKEN_CONTEXT
           examples:
-            PermissionDenied:
+            GENERIC_403_PERMISSION_DENIED:
+              description: Permission denied. OAuth2 token access does not have the required scope or when the user fails operational security
               value:
                 status: 403
                 code: PERMISSION_DENIED
-                message: "Client does not have sufficient permissions to perform this action"
+                message: Client does not have sufficient permissions to perform this action.
+            GENERIC_403_INVALID_TOKEN_CONTEXT:
+              description: Reflect some inconsistency between information in some field of the API and the related OAuth2 Token
+              value:
+                status: 403
+                code: INVALID_TOKEN_CONTEXT
+                message: "{{field}} is not consistent with access token."
     Generic404:
       description: Not found
       headers:
@@ -581,7 +635,16 @@ components:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/ErrorInfo"
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 404
+                  code:
+                    enum:
+                      - NOT_FOUND
           examples:
             GENERIC_404_NOT_FOUND:
               description: Resource is not found
@@ -597,7 +660,16 @@ components:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/ErrorInfo"
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 405
+                  code:
+                    enum:
+                      - METHOD_NOT_ALLOWED
           examples:
             GENERIC_405_METHOD_NOT_ALLOWED:
               description: Invalid HTTP verb used with a given endpoint
@@ -605,6 +677,56 @@ components:
                 status: 405
                 code: METHOD_NOT_ALLOWED
                 message: The requested method is not allowed/supported on the target resource.
+    Generic406:
+      description: Not Acceptable
+      headers:
+        x-correlator:
+          $ref: "#/components/headers/x-correlator"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 406
+                  code:
+                    enum:
+                      - NOT_ACCEPTABLE
+          examples:
+            GENERIC_406_NOT_ACCEPTABLE:
+              description: API Server does not accept the media type (`Accept-*` header) indicated by API client
+              value:
+                status: 406
+                code: NOT_ACCEPTABLE
+                message: The server cannot produce a response matching the content requested by the client through `Accept-*` headers.
+    Generic410:
+      description: Gone
+      headers:
+        x-correlator:
+          $ref: "#/components/headers/x-correlator"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 410
+                  code:
+                    enum:
+                      - GONE
+          examples:
+            GENERIC_410_GONE:
+              description: Use in notifications flow to allow API Consumer to indicate that its callback is no longer available
+              value:
+                status: 410
+                code: GONE
+                message: Access to the target resource is no longer available.
     Generic429:
       description: Too Many Requests
       headers:
@@ -613,7 +735,17 @@ components:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/ErrorInfo"
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 429
+                  code:
+                    enum:
+                      - QUOTA_EXCEEDED
+                      - TOO_MANY_REQUESTS
           examples:
             GENERIC_429_QUOTA_EXCEEDED:
               description: Request is rejected due to exceeding a business quota limit
@@ -635,7 +767,16 @@ components:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/ErrorInfo"
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 500
+                  code:
+                    enum:
+                      - INTERNAL
           examples:
             GENERIC_500_INTERNAL:
               description: Problem in Server side. Regular Server Exception
@@ -643,6 +784,56 @@ components:
                 status: 500
                 code: INTERNAL
                 message: Unknown server error. Typically a server bug.
+    Generic501:
+      description: Not Implemented
+      headers:
+        x-correlator:
+          $ref: "#/components/headers/x-correlator"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 501
+                  code:
+                    enum:
+                      - NOT_IMPLEMENTED
+          examples:
+            GENERIC_501_NOT_IMPLEMENTED:
+              description: Service not implemented. The use of this code should be avoided as far as possible to get the objective to reach aligned implementations
+              value:
+                status: 501
+                code: NOT_IMPLEMENTED
+                message: This functionality is not implemented yet.
+    Generic502:
+      description: Bad Gateway
+      headers:
+        x-correlator:
+          $ref: "#/components/headers/x-correlator"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 502
+                  code:
+                    enum:
+                      - BAD_GATEWAY
+          examples:
+            GENERIC_502_BAD_GATEWAY:
+              description: Internal routing problem in the Server side that blocks to manage the service properly
+              value:
+                status: 502
+                code: BAD_GATEWAY
+                message: An upstream internal service cannot be reached.
     Generic503:
       description: Service Unavailable
       headers:
@@ -651,7 +842,16 @@ components:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/ErrorInfo"
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 503
+                  code:
+                    enum:
+                      - UNAVAILABLE
           examples:
             GENERIC_503_UNAVAILABLE:
               description: Service is not available. Temporary situation usually related to maintenance process in the server side
@@ -667,7 +867,16 @@ components:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/ErrorInfo"
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 504
+                  code:
+                    enum:
+                      - TIMEOUT
           examples:
             GENERIC_504_TIMEOUT:
               description: API Server Timeout
