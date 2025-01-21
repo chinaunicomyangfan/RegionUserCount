@@ -2,7 +2,6 @@
 
 ## Table of Contents
 - **[r1.1](#r11)**
-- [v0.1.0](#v010)
 
 **Please be aware that the project will have frequent updates to the main branch. There are no compatibility guarantees associated with code in any branch, including main, until it has been released. For example, changes may be reverted before a release is published. For the best results, use the latest published release.**
 
@@ -10,16 +9,15 @@
 # r1.1
 ## Release Notes
 
-This public release contains the definition and documentation of
-* region-device-count v0.1.0
+This pre-release contains the definition and documentation of
+* region-device-count 0.1.0-rc.1
 
 The API definition(s) are based on
-* Commonalities v0.4.0
-* Identity and Consent Management v0.2.1
+* Commonalities v0.5.0
+* Identity and Consent Management v0.3.0
 
 
-# v0.1.0
-# region-device-count v0.1.0-rc.1
+## region-device-count v0.1.0-rc.1
 
  API definition **with inline documentation**:
 [[YAML]](https://github.com/camaraproject/RegionDeviceCount/blob/r1.1/code/API_definitions/region-device-count.yaml)
