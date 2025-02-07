@@ -136,12 +136,8 @@ paths:
                   $ref: '#/components/responses/Generic401'
                 '403':
                   $ref: '#/components/responses/Generic403'
-                '404':
-                  $ref: '#/components/responses/Generic404'
                 '410':
                   $ref: '#/components/responses/Generic410'
-                '429':
-                  $ref: '#/components/responses/Generic429'
               security:
                 - {}
                 - notificationsBearerAuth: []
@@ -170,24 +166,8 @@ paths:
           $ref: '#/components/responses/Generic401'
         '403':
           $ref: '#/components/responses/Generic403'
-        '404':
-          $ref: '#/components/responses/Generic404'
-        '405':
-          $ref: '#/components/responses/Generic405'
-        '406':
-          $ref: '#/components/responses/Generic406'
         '429':
           $ref: '#/components/responses/Generic429'
-        '500':
-          $ref: '#/components/responses/Generic500'
-        '501':
-          $ref: '#/components/responses/Generic501'
-        '502':
-          $ref: '#/components/responses/Generic502'
-        '503':
-          $ref: '#/components/responses/Generic503'
-        '504':
-          $ref: '#/components/responses/Generic504'
       security:
         - openId:
           - region-device-count
@@ -627,81 +607,6 @@ components:
                 status: 403
                 code: INVALID_TOKEN_CONTEXT
                 message: "{{field}} is not consistent with access token."
-    Generic404:
-      description: Not found
-      headers:
-        x-correlator:
-          $ref: "#/components/headers/x-correlator"
-      content:
-        application/json:
-          schema:
-            allOf:
-              - $ref: "#/components/schemas/ErrorInfo"
-              - type: object
-                properties:
-                  status:
-                    enum:
-                      - 404
-                  code:
-                    enum:
-                      - NOT_FOUND
-          examples:
-            GENERIC_404_NOT_FOUND:
-              description: Resource is not found
-              value:
-                status: 404
-                code: NOT_FOUND
-                message: The specified resource is not found.
-    Generic405:
-      description: Method Not Allowed
-      headers:
-        x-correlator:
-          $ref: "#/components/headers/x-correlator"
-      content:
-        application/json:
-          schema:
-            allOf:
-              - $ref: "#/components/schemas/ErrorInfo"
-              - type: object
-                properties:
-                  status:
-                    enum:
-                      - 405
-                  code:
-                    enum:
-                      - METHOD_NOT_ALLOWED
-          examples:
-            GENERIC_405_METHOD_NOT_ALLOWED:
-              description: Invalid HTTP verb used with a given endpoint
-              value:
-                status: 405
-                code: METHOD_NOT_ALLOWED
-                message: The requested method is not allowed/supported on the target resource.
-    Generic406:
-      description: Not Acceptable
-      headers:
-        x-correlator:
-          $ref: "#/components/headers/x-correlator"
-      content:
-        application/json:
-          schema:
-            allOf:
-              - $ref: "#/components/schemas/ErrorInfo"
-              - type: object
-                properties:
-                  status:
-                    enum:
-                      - 406
-                  code:
-                    enum:
-                      - NOT_ACCEPTABLE
-          examples:
-            GENERIC_406_NOT_ACCEPTABLE:
-              description: API Server does not accept the media type (`Accept-*` header) indicated by API client
-              value:
-                status: 406
-                code: NOT_ACCEPTABLE
-                message: The server cannot produce a response matching the content requested by the client through `Accept-*` headers.
     Generic410:
       description: Gone
       headers:
@@ -728,7 +633,7 @@ components:
                 code: GONE
                 message: Access to the target resource is no longer available.
     Generic429:
-      description: Too Many Requests
+      description: Either out of resource quota or reaching rate limiting
       headers:
         x-correlator:
           $ref: "#/components/headers/x-correlator"
@@ -759,131 +664,6 @@ components:
                 status: 429
                 code: TOO_MANY_REQUESTS
                 message: Either out of resource quota or reaching rate limiting.
-    Generic500:
-      description: Internal Server Error
-      headers:
-        x-correlator:
-          $ref: "#/components/headers/x-correlator"
-      content:
-        application/json:
-          schema:
-            allOf:
-              - $ref: "#/components/schemas/ErrorInfo"
-              - type: object
-                properties:
-                  status:
-                    enum:
-                      - 500
-                  code:
-                    enum:
-                      - INTERNAL
-          examples:
-            GENERIC_500_INTERNAL:
-              description: Problem in Server side. Regular Server Exception
-              value:
-                status: 500
-                code: INTERNAL
-                message: Unknown server error. Typically a server bug.
-    Generic501:
-      description: Not Implemented
-      headers:
-        x-correlator:
-          $ref: "#/components/headers/x-correlator"
-      content:
-        application/json:
-          schema:
-            allOf:
-              - $ref: "#/components/schemas/ErrorInfo"
-              - type: object
-                properties:
-                  status:
-                    enum:
-                      - 501
-                  code:
-                    enum:
-                      - NOT_IMPLEMENTED
-          examples:
-            GENERIC_501_NOT_IMPLEMENTED:
-              description: Service not implemented. The use of this code should be avoided as far as possible to get the objective to reach aligned implementations
-              value:
-                status: 501
-                code: NOT_IMPLEMENTED
-                message: This functionality is not implemented yet.
-    Generic502:
-      description: Bad Gateway
-      headers:
-        x-correlator:
-          $ref: "#/components/headers/x-correlator"
-      content:
-        application/json:
-          schema:
-            allOf:
-              - $ref: "#/components/schemas/ErrorInfo"
-              - type: object
-                properties:
-                  status:
-                    enum:
-                      - 502
-                  code:
-                    enum:
-                      - BAD_GATEWAY
-          examples:
-            GENERIC_502_BAD_GATEWAY:
-              description: Internal routing problem in the Server side that blocks to manage the service properly
-              value:
-                status: 502
-                code: BAD_GATEWAY
-                message: An upstream internal service cannot be reached.
-    Generic503:
-      description: Service Unavailable
-      headers:
-        x-correlator:
-          $ref: "#/components/headers/x-correlator"
-      content:
-        application/json:
-          schema:
-            allOf:
-              - $ref: "#/components/schemas/ErrorInfo"
-              - type: object
-                properties:
-                  status:
-                    enum:
-                      - 503
-                  code:
-                    enum:
-                      - UNAVAILABLE
-          examples:
-            GENERIC_503_UNAVAILABLE:
-              description: Service is not available. Temporary situation usually related to maintenance process in the server side
-              value:
-                status: 503
-                code: UNAVAILABLE
-                message: Service Unavailable.
-    Generic504:
-      description: Gateway Timeout
-      headers:
-        x-correlator:
-          $ref: "#/components/headers/x-correlator"
-      content:
-        application/json:
-          schema:
-            allOf:
-              - $ref: "#/components/schemas/ErrorInfo"
-              - type: object
-                properties:
-                  status:
-                    enum:
-                      - 504
-                  code:
-                    enum:
-                      - TIMEOUT
-          examples:
-            GENERIC_504_TIMEOUT:
-              description: API Server Timeout
-              value:
-                status: 504
-                code: TIMEOUT
-                message: Request timeout exceeded.
   examples:
     RETRIEVAL_CIRCLE:
       value:
