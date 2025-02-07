@@ -538,7 +538,7 @@ components:
                 status: 400
                 code: REGION_DEVICE_COUNT.UNSUPPPORTED_REQUEST
                 message: "Indicated combination of area or time interval is too big"
-  
+
     Generic401:
       description: Unauthorized
       headers:
