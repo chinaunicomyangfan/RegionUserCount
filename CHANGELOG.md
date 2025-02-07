@@ -19,6 +19,13 @@ The API definition(s) are based on
 
 ## region-device-count v0.1.0-rc.1
 
+**region-device-count v0.1.0-rc.1 is the first release-candidate version for v0.1.0 of the region-device-count API. The following changes have been made for v0.1.0 through https://github.com/camaraproject/RegionDeviceCount/pull/47**
+
+  * Error model aligment with commonalities, which implies use of normalization values (i.e. enums) for `status` and `code`
+  * Removal of 404,405,406,5xx errors
+  * Change the validation rule of the `Filter` parameter from `oneOf` to `anyOf`
+  * Fix MegaLinter error
+
  API definition **with inline documentation**:
 [[YAML]](https://github.com/camaraproject/RegionDeviceCount/blob/r1.1/code/API_definitions/region-device-count.yaml)
 [[View it on ReDoc]](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/RegionDeviceCount/r1.1/code/API_definitions/region-device-count.yaml&nocors)
@@ -32,5 +39,6 @@ The API definition(s) are based on
 * Add startime and endtime parameters to support querying the number of devices within a certain time period in https://github.com/camaraproject/RegionDeviceCount/pull/31
 * Added filter parameter in the request parameters to filter the roaming status and type of the device in https://github.com/camaraproject/RegionDeviceCount/pull/38
 * Add capability for async response behaviour in https://github.com/camaraproject/RegionDeviceCount/pull/42
+* Add test file in https://github.com/camaraproject/RegionDeviceCount/pull/46
 
 
