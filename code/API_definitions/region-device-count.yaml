@@ -5,53 +5,53 @@ info:
     Region Device Count API enables API consumers to obtain the number of devices within a certain geographical area during a specific time interval.
 
     # Introduction
-  
+
     This API allows for the API Consumer to query device count in the specified area during a certain time interval.The query area can be a circle or a polygon composed of longitude and latitude points.
     This functionality can be used for multiple use cases, some of the possible use cases for this API are:
-    
+
     - [Emergency Rescue](https://github.com/camaraproject/RegionDeviceCount/blob/main/documentation/API_documentation/RDC_User_Story_Emergency%20Rescue.md)
-    
+
     - [Outdoor Live Streaming](https://github.com/camaraproject/RegionDeviceCount/blob/main/documentation/API_documentation/RDC_User_Story_Outdoor%20Live%20Streaming.md)
-    
+
     # Relevant terms and definitions
-    
+
     * **Device Count**: Refers to the total number of devices that appear within a given area and a specific time interval. A device will be counted as long as it appears at least once in the specified area during the time interval.
 
     * **Notification URL and token**: Developers may provide a callback URL (`sink`) for receiving an async response. This is an optional parameter. If `sink` is included, it is RECOMMENDED for the client to provide as well the `sinkCredential` property to protect the notification endpoint. In the current version,`sinkCredential.credentialType` MUST be set to `ACCESSTOKEN` if provided.
-    
+
     # API Functionality
-  
+
     ## Request Parameters and Area Definition
-    
+
     When making a request, the API consumer needs to specify the area, start time, end time, and filter conditions in the request body. The area can be defined as a circle or a polygon. For a circular area, the center and radius must be provided; for a polygon area, a list of longitude and latitude points must be provided. If the start and end times are not provided, the API will return the current number of devices in the area.
-    
+
     ## Filter Condition Application
-    
+
     The filter condition is used for precise device filtering and currently includes two filtering criteria: `roamingStatus` and `deviceType`, with support for future expansion. The `IN` logic is applied for multiple filter items within a single filtering criterion, and the `AND` logic is used between multiple filtering criteria.
-    
-    
+
+
     For example, "filter":{"roamingStatus": ["roaming"],"deviceType": ["human device","IoT device"]}" means the API will only return the number of human network devices and IoT devices in roaming mode. "filter":{"roamingStatus": ["non-roaming"]}" will return the number of all non-roaming devices. Note that at least one filtering criterion must be provided; otherwise, the request will be invalid.
-    
+
     ## Response Result Explanation
-    
+
     The API response returns a RegionDeviceCountResponse object containing the device count and status. The status values include `SUPPORTED_AREA` (the entire requested area is supported, and the device count for the entire area is returned, with 100% telecom coverage), `PART_OF_AREA_NOT_SUPPORTED` (part of the area is outside the telecom operator's coverage area, and only the device count within the coverage area is returned, with 50% <= telecom coverage < 100%), `AREA_NOT_SUPPORTED` (the entire requested area has no telecom coverage, and no data is returned, with telecom coverage < 50%), `DENSITY_BELOW_PRIVACY_THRESHOLD` (the number of connected devices in the area is below the local regulatory privacy threshold), and `TIME_INTERVAL_NO_DATA_FOUND` (no device count data is found within the requested time interval).
-    
+
     ## Callback Function
-    
+
     The standard behaviour of the API is synchronous, although for large area requests the API may behave asynchronously. An API invoker can enforce asynchronous behaviour by providing a callback URL (`sink`)
     is in the request, in this case the API sends a callback to the callback URL provided with the result of the request. If `sink` is included, it is RECOMMENDED for the client to provide as well the `sinkCredential` property to protect the notification endpoint. In the current version,`sinkCredential.credentialType` MUST be set to `ACCESSTOKEN` if provided.
-    
+
     For requests with a combination of area, startTime and endTime properties involving an amount of processing that cannot be processed synchronously, the API returns the error response REGION_DEVICE_COUNT.UNSUPPORTED_SYNC_RESPONSE.
 
     For requests with a combination of area, startTime and endTime properties too big for both synchronous and asynchronous processing, the API returns the error response REGION_DEVICE_COUNT.UNSUPPPORTED_REQUEST.
-    
+
 
     # Authorization and Authentication
-    
+
     Region Device Count API does not involve the input and output of user personal data.Therefore, the access to Region Device Count APII is defined as `Client Credentials - 2-legged`. Please refer to [Identify and Consent Management](https://github.com/camaraproject/IdentityAndConsentManagement/) for the latest detailed specification of this authentication/authorization flow.
-    
-    
-  
+
+
+
   version: 0.1.0-rc.1
   license:
     name: Apache 2.0
@@ -81,7 +81,7 @@ paths:
         - If the areaType is circle, the circleCenter and circleRadius must be provided; if the area is a polygon, the point list must be provided.
         - If starttime and endtime are not passed in,this api should return the current number of devices in the area.
         - If the device appears in the specified area at least once during the certain time interval, it should be counted.
-        
+
       operationId: count
       parameters:
         - $ref: '#/components/parameters/x-correlator'
@@ -91,10 +91,10 @@ paths:
             schema:
               $ref: '#/components/schemas/RegionDeviceCountRequestBody'
             examples:
-                LOCATION_CIRCLE:
-                  $ref: "#/components/examples/RETRIEVAL_CIRCLE"
-                LOCATION_POLYGON:
-                  $ref: "#/components/examples/RETRIEVAL_POLYGON"
+              LOCATION_CIRCLE:
+                $ref: "#/components/examples/RETRIEVAL_CIRCLE"
+              LOCATION_POLYGON:
+                $ref: "#/components/examples/RETRIEVAL_POLYGON"
         required: true
       callbacks:
         regionDeviceCountCallback:
@@ -146,7 +146,7 @@ paths:
           description: OK
           headers:
             x-correlator:
-             $ref: "#/components/headers/x-correlator"
+              $ref: "#/components/headers/x-correlator"
           content:
             application/json:
               schema:
@@ -170,7 +170,7 @@ paths:
           $ref: '#/components/responses/Generic429'
       security:
         - openId:
-          - region-device-count
+            - region-device-count
 components:
   securitySchemes:
     openId:
@@ -195,19 +195,19 @@ components:
       properties:
         area:
           $ref: "#/components/schemas/Area"
-        starttime: 
+        starttime:
           type: string
           format: date-time
           description: Starting timestamp for counting the number of devices in the area. It must follow [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and must have time zone. Recommended format is yyyy-MM-dd'T'HH:mm:ss.SSSZ (i.e. which allows 2023-07-03T14:27:08.312+02:00 or 2023-07-03T12:27:08.312Z)
           nullable: true
           example: "2023-07-03T14:27:08.312+02:00"
-        endtime: 
+        endtime:
           type: string
           format: date-time
           description: Ending timestamp for counting the number of devices in the area. It must follow [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and must have time zone. Recommended format is yyyy-MM-dd'T'HH:mm:ss.SSSZ (i.e. which allows 2023-07-04T14:27:08.312+02:00 or 2023-07-03T12:27:08.312Z)
           nullable: true
           example: "2023-07-04T14:27:08.312+02:00"
-        filter: 
+        filter:
           $ref: "#/components/schemas/Filter"
         sink:
           type: string
@@ -302,15 +302,15 @@ components:
       minimum: -180
       maximum: 180
     Filter:
-      description: | 
+      description: |
         This parameter is used to filter devices. Currently, two filtering criteria are defined, `roamingStatus` and `deviceType`, which can be expanded in the future. `IN` logic is used used for multiple filtering items within a single filtering criterion, `AND` logic is used between multiple filtering criteria.
-        - If a filtering critera is not provided, it means that there is no need to filter this item. 
+        - If a filtering critera is not provided, it means that there is no need to filter this item.
         - At least one of the criteria must be provided,a filter without any criteria is not allowed.
         - If no filtering is required, this parameter does not need to be provided.
         For example ,`"filter":{"roamingStatus": ["roaming"],"deviceType": ["human device","IoT device"]}` means the API need to return the count of human network devices and IoT devices that are in roaming mode.`"filter":{"roamingStatus": ["non-roaming"]}` means that the API need to return the count of all devices that are not in roaming mode.
       type: object
-      properties: 
-        roamingStatus: 
+      properties:
+        roamingStatus:
           description: Filter whether the device is in roaming mode,'roaming' represents the need to filter devices that are in roaming mode,'non-roaming' represents the need to filter devices that are not roaming.
           type: array
           items:
@@ -319,7 +319,7 @@ components:
               - 'roaming'
               - 'non-roaming'
           minItems: 1
-        deviceType: 
+        deviceType:
           description: Filtering by device type, 'human device' represents the need to filter for human network devices, 'IoT device' represents the need to filter for IoT devices, and 'other' represents the need to filter for other types of devices.
           type: array
           items:
@@ -329,9 +329,9 @@ components:
               - 'IoT device'
               - 'other'
           minItems: 1
-      oneOf:
-      - required: ['roamingStatus']
-      - required: ['deviceType']
+      anyOf:
+        - required: ['roamingStatus']
+        - required: ['deviceType']
     SinkCredential:
       type: object
       properties:
@@ -424,8 +424,6 @@ components:
     RegionDeviceCountResponse:
       type: object
       description: RegionDeviceCount result
-      required:
-        - count
       properties:
         count:
           $ref: '#/components/schemas/Count'
@@ -437,13 +435,13 @@ components:
     Status:
       description: | 
         SUPPORTED_AREA: The whole requested area is supported Region Device Count for the entire requested area is returned - Telco Coverage = 100 %
-        
+  
         PART_OF_AREA_NOT_SUPPORTED: Part of the requested area is outside the MNOs coverage area, the area outside the coverage area are not returned - 100% >Telco Coverage >=50%
-        
+  
         AREA_NOT_SUPPORTED:  The whole requested area is outside the MNO coverage area No data will be returned- Telco Coverage <50%
-        
+  
         DENSITY_BELOW_PRIVACY_THRESHOLD:  The number of connected devices is below privacy threshold of local regulation
-        
+  
         TIME_INTERVAL_NO_DATA_FOUND: Unable to find device count data within the requested time interval
       type: string
       enum:
@@ -678,7 +676,7 @@ components:
         filter:
           roamingStatus: ["roaming"]
           deviceType: ["human device","IoT device"]
-        sink: https://endpoint.example.com/sink
+        sink: "https://endpoint.example.com/sink"
         sinkCredential:
           credentialType: ACCESSTOKEN
           accessToken: "yJ2ZXIiOiIxLjAiLCJ0eXAiO..."
@@ -702,7 +700,7 @@ components:
         filter:
           roamingStatus: ["non-roaming"]
           deviceType: ["other"]
-        sink: https://endpoint.example.com/sink
+        sink: "https://endpoint.example.com/sink"
         sinkCredential:
           credentialType: ACCESSTOKEN
           accessToken: "yJ2ZXIiOiIxLjAiLCJ0eXAiO..."
