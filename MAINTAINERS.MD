@@ -1,4 +1,5 @@
 | Org                    | Name                   | GitHub Username             |
 | -----------------------| -----------------------|-----------------------------|
 | China Unicom | Yang Fan | chinaunicomyangfan |
-| Huawei | Jin Xu | philipxujin |
+| Huawei | Jia Wang | ClownsAlbert |
+| Huawei | Chuanyu Chen | ChuanyuChen |
