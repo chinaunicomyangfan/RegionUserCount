@@ -11,7 +11,7 @@
 
 ## Release Notes
 
-This pre-release contains the definition and documentation of
+This release contains the definition and documentation of
 * region-device-count 0.1.0
 
 The API definition(s) are based on
