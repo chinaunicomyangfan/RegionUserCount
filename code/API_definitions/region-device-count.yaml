@@ -9,9 +9,9 @@ info:
     This API allows for the API Consumer to query device count in the specified area during a certain time interval.The query area can be a circle or a polygon composed of longitude and latitude points.
     This functionality can be used for multiple use cases, some of the possible use cases for this API are:
 
-    - [Emergency Rescue](https://github.com/camaraproject/RegionDeviceCount/blob/main/documentation/API_documentation/RDC_User_Story_Emergency%20Rescue.md)
+    - [Emergency Rescue](/documentation/API_documentation/RDC_User_Story_Emergency%20Rescue.md)
 
-    - [Outdoor Live Streaming](https://github.com/camaraproject/RegionDeviceCount/blob/main/documentation/API_documentation/RDC_User_Story_Outdoor%20Live%20Streaming.md)
+    - [Outdoor Live Streaming](/documentation/API_documentation/RDC_User_Story_Outdoor%20Live%20Streaming.md)
 
     # Relevant terms and definitions
 
@@ -104,7 +104,7 @@ paths:
               description: |
                 Important: this endpoint is to be implemented by the API consumer.
                 The Region Device Count server will call this endpoint when the request result is ready.
-              operationId: postNotification
+              operationId: postRegionDeviceCountNotification
               parameters:
                 - $ref: '#/components/parameters/x-correlator'
               requestBody:
@@ -213,7 +213,7 @@ components:
           $ref: "#/components/schemas/Filter"
         sink:
           type: string
-          format: url
+          format: uri
           description: The URL where the API response will be asynchronously delivered, using the HTTP protocol.
           example: 'https://endpoint.example.com/sink'
         sinkCredential:
@@ -343,7 +343,9 @@ components:
             - PLAIN
             - ACCESSTOKEN
             - REFRESHTOKEN
-          description: 'The type of the credential. With the current API version the type MUST be set to `ACCESSTOKEN`'
+          description: |
+            The type of the credential.
+            Note: Type of the credential - MUST be set to ACCESSTOKEN for now
       discriminator:
         propertyName: credentialType
         mapping:
@@ -381,7 +383,13 @@ components:
             accessTokenExpiresUtc:
               type: string
               format: date-time
-              description: REQUIRED. An absolute UTC instant at which the token shall be considered expired.
+              description: |
+                REQUIRED. An absolute (UTC) timestamp at which the token shall be considered expired.
+                In the case of an ACCESS_TOKEN_EXPIRED termination reason, implementation should notify the client before the expiration date.
+                If the access token is a JWT and registered "exp" (Expiration Time) claim is present, the two expiry times should match.
+                It must follow [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and must have time zone.
+                Recommended format is yyyy-MM-dd'T'HH:mm:ss.SSSZ (i.e. which allows 2023-07-03T14:27:08.312+02:00 or 2023-07-03T12:27:08.312Z)
+              example: "2023-07-03T12:27:08.312Z"
             accessTokenType:
               description: REQUIRED. Type of the access token (See [OAuth 2.0](https://tools.ietf.org/html/rfc6749#section-7.1)). For the current version of the API the type MUST be set to `Bearer`.
               type: string
@@ -404,7 +412,13 @@ components:
             accessTokenExpiresUtc:
               type: string
               format: date-time
-              description: REQUIRED. An absolute UTC instant at which the token shall be considered expired.
+              description: |
+                REQUIRED. An absolute (UTC) timestamp at which the token shall be considered expired.
+                In the case of an ACCESS_TOKEN_EXPIRED termination reason, implementation should notify the client before the expiration date.
+                If the access token is a JWT and registered "exp" (Expiration Time) claim is present, the two expiry times should match.
+                It must follow [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and must have time zone.
+                Recommended format is yyyy-MM-dd'T'HH:mm:ss.SSSZ (i.e. which allows 2023-07-03T14:27:08.312+02:00 or 2023-07-03T12:27:08.312Z)
+              example: "2023-07-03T12:27:08.312Z"
             accessTokenType:
               description: REQUIRED. Type of the access token (See [OAuth 2.0](https://tools.ietf.org/html/rfc6749#section-7.1)).
               type: string

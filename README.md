@@ -11,23 +11,23 @@ Repository to describe, develop, document and test the RegionDeviceCount API
 
 ## Scope
 * Service APIs for “RegionDeviceCount” (see APIBacklog.md)  
-* It provides the customer with the ability to:  
-  * query the number of active users (i.e., excluding idle mode users) in the specified area. The query area can be a circle or a polygon composed of longitude and latitude points.
-  * NOTE: The scope of this API family should be limited (at least at a first stage) to 4G and 5G.  
+* It provides the API consumer with the ability to:  
+  * query device count in the specified area during a certain time interval.The query area can be a circle or a polygon composed of longitude and latitude points.
+  * NOTE: The scope of this API should be limited (at least at a first stage) to 4G and 5G.  
 * Describe, develop, document and test the APIs (with 1-2 Telcos)  
 * Started: December 2023
-* Location: virtually  
 
 ## Release Information
 <!-- Use/uncomment one or multiple the following options -->
-<!-- Pre-releases of this sub project are available in https://github.com/camaraproject/§repo_name§/releases -->
-<!-- The latest public release is available here: https://github.com/camaraproject/§repo_name§/releases/latest -->
-<!-- For changes see [CHANGELOG.md](https://github.com/camaraproject/§repo_name§/blob/main/CHANGELOG.md) -->
+<!-- Pre-releases of this sub project are available in https://github.com/camaraproject/RegionDeviceCount/releases -->
+<!-- The latest public release is available here: https://github.com/camaraproject/RegionDeviceCount/releases/latest -->
 
-* **Pre-release r1.1 with region-device-count v0.1.0-rc.1:**  
-  [[YAML]](https://github.com/camaraproject/RegionDeviceCount/blob/r1.1/code/API_definitions/region-device-count.yaml)
-  [[View it on ReDoc]](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/RegionDeviceCount/r1.1/code/API_definitions/region-device-count.yaml&nocors)
-  [[View it on Swagger Editor]](https://editor.swagger.io/?url=https://raw.githubusercontent.com/camaraproject/RegionDeviceCount/r1.1/code/API_definitions/region-device-count.yaml)
+* **This is the first public release with region-device-count v0.1.0:**  
+  [[YAML]](https://github.com/camaraproject/RegionDeviceCount/blob/r1.2/code/API_definitions/region-device-count.yaml)
+  [[View it on ReDoc]](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/RegionDeviceCount/r1.2/code/API_definitions/region-device-count.yaml&nocors)
+  [[View it on Swagger Editor]](https://editor.swagger.io/?url=https://raw.githubusercontent.com/camaraproject/RegionDeviceCount/r1.2/code/API_definitions/region-device-count.yaml)
+  
+* For changes see [CHANGELOG.md](https://github.com/camaraproject/RegionDeviceCount/blob/main/CHANGELOG.md)
 
 ## Contributing
 * Meetings are held virtually <!-- for new API families request a meeting link from the LF admin team or replace the information with the existing meeting information (of the API family) -->
