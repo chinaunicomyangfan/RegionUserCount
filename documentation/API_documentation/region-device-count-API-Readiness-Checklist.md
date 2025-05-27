@@ -1,6 +1,6 @@
 # API Readiness Checklist
 
-Checklist for region-device-count v0.1.0 in r1.2
+Checklist for region-device-count v0.1.0 in r1.3
 
 | Nr | API release assets  | alpha | release-candidate |  initial<br>public | stable<br> public | Status | Reference information |
 |----|----------------------------------------------|:-----:|:-----------------:|:-------:|:------:|:----:|:----:|
