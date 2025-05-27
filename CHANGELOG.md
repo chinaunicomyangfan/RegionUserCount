@@ -1,11 +1,24 @@
 # Changelog Region Device Count
 
 ## Table of Contents
+- **[r1.3](#r13)**
 - **[r1.2](#r12)**
 - **[r1.1](#r11)**
 
 **Please be aware that the project will have frequent updates to the main branch. There are no compatibility guarantees associated with code in any branch, including main, until it has been released. For example, changes may be reverted before a release is published. For the best results, use the latest published release.**
 
+
+# r1.3
+
+## Release Notes
+
+This patch release is just correcting the version number in the API definition file.
+
+
+ API definition **with inline documentation**:
+[[YAML]](https://github.com/camaraproject/RegionDeviceCount/blob/r1.3/code/API_definitions/region-device-count.yaml)
+[[View it on ReDoc]](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/RegionDeviceCount/r1.3/code/API_definitions/region-device-count.yaml&nocors)
+[[View it on Swagger Editor]](https://editor.swagger.io/?url=https://raw.githubusercontent.com/camaraproject/RegionDeviceCount/r1.3/code/API_definitions/region-device-count.yaml)
 
 # r1.2
 
