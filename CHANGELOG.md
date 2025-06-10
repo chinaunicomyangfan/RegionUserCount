@@ -26,7 +26,7 @@ The API definition(s) are based on
  API definition **with inline documentation**:
 [[YAML]](https://github.com/camaraproject/RegionDeviceCount/blob/r1.3/code/API_definitions/region-device-count.yaml)
 [[View it on ReDoc]](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/RegionDeviceCount/r1.3/code/API_definitions/region-device-count.yaml&nocors)
-[[View it on Swagger Editor]](https://editor.swagger.io/?url=https://raw.githubusercontent.com/camaraproject/RegionDeviceCount/r1.3/code/API_definitions/region-device-count.yaml)
+[[View it on Swagger Editor]](https://camaraproject.github.io/swagger-ui/?url=https://raw.githubusercontent.com/camaraproject/RegionDeviceCount/r1.3/code/API_definitions/region-device-count.yaml)
 
 # r1.2
 
@@ -60,7 +60,7 @@ The API definition(s) are based on
  API definition **with inline documentation**:
 [[YAML]](https://github.com/camaraproject/RegionDeviceCount/blob/r1.2/code/API_definitions/region-device-count.yaml)
 [[View it on ReDoc]](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/RegionDeviceCount/r1.2/code/API_definitions/region-device-count.yaml&nocors)
-[[View it on Swagger Editor]](https://editor.swagger.io/?url=https://raw.githubusercontent.com/camaraproject/RegionDeviceCount/r1.2/code/API_definitions/region-device-count.yaml)
+[[View it on Swagger Editor]](https://camaraproject.github.io/swagger-ui/?url=https://raw.githubusercontent.com/camaraproject/RegionDeviceCount/r1.2/code/API_definitions/region-device-count.yaml)
 
 # r1.1
 ## Release Notes
@@ -85,7 +85,7 @@ The API definition(s) are based on
  API definition **with inline documentation**:
 [[YAML]](https://github.com/camaraproject/RegionDeviceCount/blob/r1.1/code/API_definitions/region-device-count.yaml)
 [[View it on ReDoc]](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/RegionDeviceCount/r1.1/code/API_definitions/region-device-count.yaml&nocors)
-[[View it on Swagger Editor]](https://editor.swagger.io/?url=https://raw.githubusercontent.com/camaraproject/RegionDeviceCount/r1.1/code/API_definitions/region-device-count.yaml)
+[[View it on Swagger Editor]](https://camaraproject.github.io/swagger-ui/?url=https://raw.githubusercontent.com/camaraproject/RegionDeviceCount/r1.1/code/API_definitions/region-device-count.yaml)
 
 **Initial contribution of API definitions for Region Device Count**, including initial documentation and implementation code.
 
