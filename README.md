@@ -5,9 +5,13 @@
 <a href="https://github.com/camaraproject/RegionDeviceCount" title="Repo Size"><img src="https://img.shields.io/github/repo-size/camaraproject/RegionDeviceCount?style=plastic"></a>
 <a href="https://github.com/camaraproject/RegionDeviceCount/blob/main/LICENSE" title="License"><img src="https://img.shields.io/badge/License-Apache%202.0-green.svg?style=plastic"></a>
 <a href="https://github.com/camaraproject/RegionDeviceCount/releases/latest" title="Latest Release"><img src="https://img.shields.io/github/release/camaraproject/RegionDeviceCount?style=plastic"></a>
+<a href="https://github.com/camaraproject/Governance/blob/main/ProjectStructureAndRoles.md" title="Sandbox API Repository"><img src="https://img.shields.io/badge/Sandbox%20API%20Repository-yellow?style=plastic"></a>
 
 # RegionDeviceCount
-Repository to describe, develop, document and test the RegionDeviceCount API
+
+Sandbox API Repository to describe, develop, document, and test the RegionDeviceCount Service API(s). The repository does not yet belong to a CAMARA Sub Project.
+
+* API Repository [wiki page](https://lf-camaraproject.atlassian.net/wiki/x/JSTe)
 
 ## Scope
 * Service APIs for “RegionDeviceCount” (see APIBacklog.md)  
