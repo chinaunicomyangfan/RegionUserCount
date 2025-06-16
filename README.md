@@ -34,7 +34,7 @@ Sandbox API Repository to describe, develop, document, and test the RegionDevice
 * For changes see [CHANGELOG.md](https://github.com/camaraproject/RegionDeviceCount/blob/main/CHANGELOG.md)
 
 ## Contributing
-* Meetings are held virtually <!-- for new API families request a meeting link from the LF admin team or replace the information with the existing meeting information (of the API family) -->
+* Meetings are held virtually
     * Schedule: Bi-Weekly on Fridays 11:00 CET/CEST / 09:00 UTC
     * [Registration / Join](https://zoom-lfx.platform.linuxfoundation.org/meeting/91734372257?password=28df8c0a-941a-4f41-adc2-fd5de2791a96)
     * Minutes: Access [Meeting minutes](https://wiki.camaraproject.org/display/CAM/RegionDeviceCount)
