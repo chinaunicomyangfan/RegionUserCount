@@ -50,16 +50,16 @@ info:
 
     Region Device Count API does not involve the input and output of user personal data.Therefore, the access to Region Device Count APII is defined as `Client Credentials - 2-legged`. Please refer to [Identify and Consent Management](https://github.com/camaraproject/IdentityAndConsentManagement/) for the latest detailed specification of this authentication/authorization flow.
 
-  version: 0.1.0
+  version: 0.2.0-rc.1
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-  x-camara-commonalities: 0.5
+  x-camara-commonalities: 0.6
 externalDocs:
   description: Project documentation at CAMARA
   url: https://github.com/camaraproject/RegionDeviceCount
 servers:
-  - url: '{apiRoot}/region-device-count/v0.1'
+  - url: '{apiRoot}/region-device-count/v0.2rc1'
     variables:
       apiRoot:
         default: http://localhost:9091
