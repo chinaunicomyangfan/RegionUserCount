@@ -110,7 +110,7 @@ Feature: CAMARA Region Device Count API v0.2.0 - Operations for device count in 
     And the response header "Content-Type" is "application/json"
     And the response header "x-correlator" has same value as the request header "x-correlator"
     And the request with the response body will be received at the address of the request property "$.sink"
-    And the request will have header "Authorization" set to "Bearer: " + the value of the request property "$.sinkCredential.accessToken"
+    And the request will have header "Authorization" set to "Bearer " + the value of the request property "$.sinkCredential.accessToken"
     And the request body received complies with the OAS schema at "/components/schemas/RegionDeviceCountResponse"
 
   # Generic errors
@@ -271,4 +271,5 @@ Feature: CAMARA Region Device Count API v0.2.0 - Operations for device count in 
     And the response header "Content-Type" is "application/json"
     And the response property "$.status" is 400
     And the response property "$.code" is "REGION_DEVICE_COUNT.UNSUPPPORTED_REQUEST"
+
     And the response property "$.message" contains a user friendly text
