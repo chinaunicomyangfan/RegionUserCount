@@ -25,11 +25,11 @@ Sandbox API Repository to describe, develop, document, and test the RegionDevice
 <!-- Use/uncomment one or multiple the following options -->
 <!-- Pre-releases of this sub project are available in https://github.com/camaraproject/RegionDeviceCount/releases -->
 <!-- The latest public release is available here: https://github.com/camaraproject/RegionDeviceCount/releases/latest -->
-
-* `NEW`: Pre-release r2.1 with version 0.2.0-rc.1 of the API region-device-count is available [here](https://github.com/camaraproject/RegionDeviceCount/tree/r2.1).
-  [[YAML]](https://github.com/camaraproject/RegionDeviceCount/blob/r2.1/code/API_definitions/region-device-count.yaml)
-  [[View it on ReDoc]](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/RegionDeviceCount/r2.1/code/API_definitions/region-device-count.yaml&nocors)
-  [[View it on Swagger Editor]](https://camaraproject.github.io/swagger-ui/?url=https://raw.githubusercontent.com/camaraproject/RegionDeviceCount/r2.1/code/API_definitions/region-device-count.yaml)
+ * **NEW**: Public release [r2.2](https://github.com/camaraproject/RegionDeviceCount/releases/tag/r2.2) with subscription-status v0.2.0 is now available.
+  * API definition **with inline documentation**:
+  [[YAML]](https://github.com/camaraproject/RegionDeviceCount/blob/r2.2/code/API_definitions/region-device-count.yaml)
+  [[View it on ReDoc]](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/RegionDeviceCount/r2.2/code/API_definitions/region-device-count.yaml&nocors)
+  [[View it on Swagger Editor]](https://camaraproject.github.io/swagger-ui/?url=https://raw.githubusercontent.com/camaraproject/RegionDeviceCount/r2.2/code/API_definitions/region-device-count.yaml)
   
 * For changes see [CHANGELOG.md](https://github.com/camaraproject/RegionDeviceCount/blob/main/CHANGELOG.md)
 
