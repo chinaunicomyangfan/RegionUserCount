@@ -1,5 +1,4 @@
-@RegionDeviceCount
-  Feature: CAMARA Region Device Count API v0.2.0-rc.1 - Operations for device count in specified area
+Feature: CAMARA Region Device Count API v0.2.0-rc.1 - Operations for device count in specified area
 
 # Input to be provided by the implementation to the tester
 #
@@ -72,7 +71,7 @@
     And the response property "$.count" is absent
 
   @region_device_count_count_05_supported_area_time_interval_success_scenario
-  Scenario: Validate success response for a supported area request
+  Scenario: Validate success response for a supported area and a supported time interval request
     Given the request body property "$.area" is set to a valid testing area within supported regions
     And the request body property "$.starttime" is set to a valid testing time within the allowed time range
     And the request body property "$.endtime" is set to a valid testing time later than body property "$.starttime"
@@ -85,7 +84,7 @@
     And the response property "$.count" is a non-negative integer
 
   @region_device_count_count_06_supported_area_filter_success_scenario
-  Scenario: Validate success response for a supported area request
+  Scenario: Validate success response for a supported area and a supported filter request
     Given the request body property "$.area" is set to a valid testing area within supported regions
     And the request body property "$.filter" is set to a valid testing filter the API supported
     When the request "count" is sent
@@ -116,7 +115,7 @@
 
   # Generic errors
   @region_device_count_count_08_missing_required_property
-  Scenario Outline: Error response for missing required property in request body
+  Scenario: Error response for missing required property in request body
     Given the request body property "<required_property>" is not included
     When the request "count" is sent
     Then the response status code is 400
@@ -134,10 +133,10 @@
     And the response property "$.code" is "INVALID_ARGUMENT"
     And the response property "$.message" contains a user friendly text
 
-  Examples:
-    | date_property |
-    | $.starttime   |
-    | $.endtime     |
+    Examples:
+      | date_property |
+      | $.starttime   |
+      | $.endtime     |
 
   @region_device_count_count_10_invalid_sink_credential
   Scenario Outline:  Invalid credential
@@ -150,10 +149,10 @@
     And the response property "$.code" is "INVALID_CREDENTIAL"
     And the response property "$.message" contains a user friendly text
 
-  Examples:
-    | unsupported_credential_type |
-    | PLAIN                       |
-    | REFRESHTOKEN                |
+    Examples:
+      | unsupported_credential_type |
+      | PLAIN                       |
+      | REFRESHTOKEN                |
 
   # Only "bearer" is considered in the schema so a generic schema validator may fail and generate a 400 INVALID_ARGUMENT without further distinction,
   # and both could be accepted
@@ -254,7 +253,6 @@
     And the response property "$.code" is "REGION_DEVICE_COUNT.INVALID_AREA"
     And the response property "$.message" contains a user friendly text
 
-
   @region_device_count_count_19_unsupported_sync_response
   Scenario: Error 400 when the response is unsupported for a sync response
     Given the request body properties "$.area", "$.starttime" and "$.endtime" are set to values that generate a response too big for a synchronous response
@@ -274,3 +272,4 @@
     And the response property "$.status" is 400
     And the response property "$.code" is "REGION_DEVICE_COUNT.UNSUPPPORTED_REQUEST"
     And the response property "$.message" contains a user friendly text
+
