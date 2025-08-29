@@ -272,4 +272,3 @@ Feature: CAMARA Region Device Count API v0.2.0-rc.1 - Operations for device coun
     And the response property "$.status" is 400
     And the response property "$.code" is "REGION_DEVICE_COUNT.UNSUPPPORTED_REQUEST"
     And the response property "$.message" contains a user friendly text
-
