@@ -14,7 +14,7 @@
 ## Release Notes
 
 
-This release contains the definition and documentation of
+This public release contains the definition and documentation of
 * region-device-count 0.2.0
 
 The API definition(s) are based on
@@ -30,9 +30,9 @@ The API definition(s) are based on
 * Update pattern for x-correlator in https://github.com/camaraproject/RegionDeviceCount/pull/58
 
  API definition **with inline documentation**:
-[[YAML]](https://github.com/camaraproject/RegionDeviceCount/blob/r2.1/code/API_definitions/region-device-count.yaml)
-[[View it on ReDoc]](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/RegionDeviceCount/r2.1/code/API_definitions/region-device-count.yaml&nocors)
-[[View it on Swagger Editor]](https://camaraproject.github.io/swagger-ui/?url=https://raw.githubusercontent.com/camaraproject/RegionDeviceCount/r2.1/code/API_definitions/region-device-count.yaml)
+[[YAML]](https://github.com/camaraproject/RegionDeviceCount/blob/r2.2/code/API_definitions/region-device-count.yaml)
+[[View it on ReDoc]](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/RegionDeviceCount/r2.2/code/API_definitions/region-device-count.yaml&nocors)
+[[View it on Swagger Editor]](https://camaraproject.github.io/swagger-ui/?url=https://raw.githubusercontent.com/camaraproject/RegionDeviceCount/r2.2/code/API_definitions/region-device-count.yaml)
 
 
 # r2.1
@@ -151,6 +151,7 @@ The API definition(s) are based on
 * Added filter parameter in the request parameters to filter the roaming status and type of the device in https://github.com/camaraproject/RegionDeviceCount/pull/38
 * Add capability for async response behaviour in https://github.com/camaraproject/RegionDeviceCount/pull/42
 * Add test file in https://github.com/camaraproject/RegionDeviceCount/pull/46
+
 
 
 
