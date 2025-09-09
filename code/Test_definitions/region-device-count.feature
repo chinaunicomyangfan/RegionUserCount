@@ -20,7 +20,7 @@ Feature: CAMARA Region Device Count API v0.2.0 - Operations for device count in 
 
   Background: Common Region Device Count setup
     Given an environment at "apiRoot"
-    And the resource "/regionDeviceCount/v0.2/count"
+    And the resource "/region-device-count/v0.2/count"
     And the header "Content-Type" is set to "application/json"
     And the header "Authorization" is set to a valid access token
     And the header "x-correlator" complies with the schema at "#/components/schemas/XCorrelator"
@@ -273,3 +273,4 @@ Feature: CAMARA Region Device Count API v0.2.0 - Operations for device count in 
     And the response property "$.status" is 400
     And the response property "$.code" is "REGION_DEVICE_COUNT.UNSUPPPORTED_REQUEST"
     And the response property "$.message" contains a user friendly text
+
