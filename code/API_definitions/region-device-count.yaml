@@ -182,7 +182,7 @@ paths:
           $ref: '#/components/responses/Generic429'
       security:
         - openId:
-            - region-device-count
+            - region-device-count:count
 components:
   securitySchemes:
     openId:
