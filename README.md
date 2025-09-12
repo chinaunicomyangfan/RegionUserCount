@@ -1,11 +1,11 @@
-<a href="https://bgithub.xyz/camaraproject/RegionDeviceCount/commits/" title="Last Commit"><img src="https://img.shields.io/github/last-commit/camaraproject/RegionDeviceCount?style=plastic"></a>
-<a href="https://bgithub.xyz/camaraproject/RegionDeviceCount/issues" title="Open Issues"><img src="https://img.shields.io/github/issues/camaraproject/RegionDeviceCount?style=plastic"></a>
-<a href="https://bgithub.xyz/camaraproject/RegionDeviceCount/pulls" title="Open Pull Requests"><img src="https://img.shields.io/github/issues-pr/camaraproject/RegionDeviceCount?style=plastic"></a>
-<a href="https://bgithub.xyz/camaraproject/RegionDeviceCount/graphs/contributors" title="Contributors"><img src="https://img.shields.io/github/contributors/camaraproject/RegionDeviceCount?style=plastic"></a>
-<a href="https://bgithub.xyz/camaraproject/RegionDeviceCount" title="Repo Size"><img src="https://img.shields.io/github/repo-size/camaraproject/RegionDeviceCount?style=plastic"></a>
-<a href="https://bgithub.xyz/camaraproject/RegionDeviceCount/blob/main/LICENSE" title="License"><img src="https://img.shields.io/badge/License-Apache%202.0-green.svg?style=plastic"></a>
-<a href="https://bgithub.xyz/camaraproject/RegionDeviceCount/releases/latest" title="Latest Release"><img src="https://img.shields.io/github/release/camaraproject/RegionDeviceCount?style=plastic"></a>
-<a href="https://bgithub.xyz/camaraproject/Governance/blob/main/ProjectStructureAndRoles.md" title="Sandbox API Repository"><img src="https://img.shields.io/badge/Sandbox%20API%20Repository-yellow?style=plastic"></a>
+<a href="https://github.com/camaraproject/RegionDeviceCount/commits/" title="Last Commit"><img src="https://img.shields.io/github/last-commit/camaraproject/RegionDeviceCount?style=plastic"></a>
+<a href="https://github.com/camaraproject/RegionDeviceCount/issues" title="Open Issues"><img src="https://img.shields.io/github/issues/camaraproject/RegionDeviceCount?style=plastic"></a>
+<a href="https://github.com/camaraproject/RegionDeviceCount/pulls" title="Open Pull Requests"><img src="https://img.shields.io/github/issues-pr/camaraproject/RegionDeviceCount?style=plastic"></a>
+<a href="https://github.com/camaraproject/RegionDeviceCount/graphs/contributors" title="Contributors"><img src="https://img.shields.io/github/contributors/camaraproject/RegionDeviceCount?style=plastic"></a>
+<a href="https://github.com/camaraproject/RegionDeviceCount" title="Repo Size"><img src="https://img.shields.io/github/repo-size/camaraproject/RegionDeviceCount?style=plastic"></a>
+<a href="https://github.com/camaraproject/RegionDeviceCount/blob/main/LICENSE" title="License"><img src="https://img.shields.io/badge/License-Apache%202.0-green.svg?style=plastic"></a>
+<a href="https://github.com/camaraproject/RegionDeviceCount/releases/latest" title="Latest Release"><img src="https://img.shields.io/github/release/camaraproject/RegionDeviceCount?style=plastic"></a>
+<a href="https://github.com/camaraproject/Governance/blob/main/ProjectStructureAndRoles.md" title="Sandbox API Repository"><img src="https://img.shields.io/badge/Sandbox%20API%20Repository-yellow?style=plastic"></a>
 
 # RegionDeviceCount
 
@@ -28,8 +28,8 @@ Sandbox API Repository to describe, develop, document, and test the RegionDevice
  * **NEW**: Public release [r2.2](https://github.com/camaraproject/RegionDeviceCount/releases/tag/r2.2) with region-device-count v0.2.0 is now available.
   * API definition **with inline documentation**:
   [[YAML]](https://github.com/camaraproject/RegionDeviceCount/blob/r2.2/code/API_definitions/region-device-count.yaml)
-  [[View it on ReDoc]](https://redocly.github.io/redoc/?url=https://raw.bgithub.xyz/camaraproject/RegionDeviceCount/r2.2/code/API_definitions/region-device-count.yaml&nocors)
-  [[View it on Swagger Editor]](https://camaraproject.github.io/swagger-ui/?url=https://raw.bgithub.xyz/camaraproject/RegionDeviceCount/r2.2/code/API_definitions/region-device-count.yaml)
+  [[View it on ReDoc]](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/RegionDeviceCount/r2.2/code/API_definitions/region-device-count.yaml&nocors)
+  [[View it on Swagger Editor]](https://camaraproject.github.io/swagger-ui/?url=https://raw.githubusercontent.com/camaraproject/RegionDeviceCount/r2.2/code/API_definitions/region-device-count.yaml)
   
 * For changes see [CHANGELOG.md](https://github.com/camaraproject/RegionDeviceCount/blob/main/CHANGELOG.md)
 
