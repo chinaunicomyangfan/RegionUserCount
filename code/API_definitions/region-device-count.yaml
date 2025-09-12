@@ -9,9 +9,9 @@ info:
     This API allows for the API Consumer to query device count in the specified area during a certain time interval.The query area can be a circle or a polygon composed of longitude and latitude points.
     This functionality can be used for multiple use cases, some of the possible use cases for this API are:
 
-    - [Emergency Rescue](https://raw.bgithub.xyz/camaraproject/RegionDeviceCount/main/documentation/API_documentation/RDC_User_Story_Emergency_Rescue.md)
+    - [Emergency Rescue](https://raw.githubusercontent.com/camaraproject/RegionDeviceCount/main/documentation/API_documentation/RDC_User_Story_Emergency_Rescue.md)
 
-    - [Outdoor Live Streaming](https://raw.bgithub.xyz/camaraproject/RegionDeviceCount/main/documentation/API_documentation/RDC_User_Story_Outdoor_Live_Streaming.md)
+    - [Outdoor Live Streaming](https://raw.githubusercontent.com/camaraproject/RegionDeviceCount/main/documentation/API_documentation/RDC_User_Story_Outdoor_Live_Streaming.md)
 
     # Relevant terms and definitions
 
