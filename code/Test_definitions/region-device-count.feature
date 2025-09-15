@@ -1,4 +1,4 @@
-Feature: CAMARA Region Device Count API v0.2.0-rc.1 - Operations for device count in specified area
+Feature: CAMARA Region Device Count API v0.2.0 - Operations for device count in specified area
 
 # Input to be provided by the implementation to the tester
 #
@@ -16,10 +16,11 @@ Feature: CAMARA Region Device Count API v0.2.0-rc.1 - Operations for device coun
 # * An Area outside the supported region
 # * A combination of request parameters including area, start time, and end time, such that the number of connected devices in the area is below the local regulatory privacy threshold
 #
-# References to OAS spec schemas refer to schemas specifies in region-device-count.yaml, version 0.2.0-rc.1
+# References to OAS spec schemas refer to schemas specifies in region-device-count.yaml, version 0.2.0
 
   Background: Common Region Device Count setup
-    Given the resource "{api-root}/regionDeviceCount/v0.2rc1/count" set as base-url
+    Given an environment at "apiRoot"
+    And the resource "/region-device-count/v0.2/count"
     And the header "Content-Type" is set to "application/json"
     And the header "Authorization" is set to a valid access token
     And the header "x-correlator" complies with the schema at "#/components/schemas/XCorrelator"
@@ -110,7 +111,7 @@ Feature: CAMARA Region Device Count API v0.2.0-rc.1 - Operations for device coun
     And the response header "Content-Type" is "application/json"
     And the response header "x-correlator" has same value as the request header "x-correlator"
     And the request with the response body will be received at the address of the request property "$.sink"
-    And the request will have header "Authorization" set to "Bearer: " + the value of the request property "$.sinkCredential.accessToken"
+    And the request will have header "Authorization" set to "Bearer " + the value of the request property "$.sinkCredential.accessToken"
     And the request body received complies with the OAS schema at "/components/schemas/RegionDeviceCountResponse"
 
   # Generic errors

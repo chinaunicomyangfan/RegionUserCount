@@ -48,6 +48,12 @@ info:
 
     # Authorization and Authentication
 
+    The "Camara Security and Interoperability Profile" provides details of how an API consumer requests an access token. Please refer to Identity and Consent Management (https://github.com/camaraproject/IdentityAndConsentManagement/) for the released version of the profile.
+
+    The specific authorization flows to be used will be agreed upon during the onboarding process, happening between the API consumer and the API provider, taking into account the declared purpose for accessing the API, whilst also being subject to the prevailing legal framework dictated by local legislation.
+
+    In cases where personal data is processed by the API and users can exercise their rights through mechanisms such as opt-in and/or opt-out, the use of three-legged access tokens is mandatory. This ensures that the API remains in compliance with privacy regulations, upholding the principles of transparency and user-centric privacy-by-design.
+
     Region Device Count API does not involve the input and output of user personal data.Therefore, the access to Region Device Count APII is defined as `Client Credentials - 2-legged`. Please refer to [Identify and Consent Management](https://github.com/camaraproject/IdentityAndConsentManagement/) for the latest detailed specification of this authentication/authorization flow.
 
     # Additional CAMARA error responses
@@ -58,7 +64,7 @@ info:
 
     As a specific rule, error `501 - NOT_IMPLEMENTED` can be only a possible error response if it is explicitly documented in the API.
 
-  version: 0.2.0-rc.1
+  version: 0.2.0
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
@@ -67,7 +73,7 @@ externalDocs:
   description: Project documentation at CAMARA
   url: https://github.com/camaraproject/RegionDeviceCount
 servers:
-  - url: '{apiRoot}/region-device-count/v0.2rc1'
+  - url: '{apiRoot}/region-device-count/v0.2'
     variables:
       apiRoot:
         default: http://localhost:9091
@@ -176,12 +182,17 @@ paths:
           $ref: '#/components/responses/Generic429'
       security:
         - openId:
-            - region-device-count
+            - region-device-count:count
 components:
   securitySchemes:
     openId:
       type: openIdConnect
       openIdConnectUrl: https://example.com/.well-known/openid-configuration
+    notificationsBearerAuth:
+      description: Bearer authentication for notifications
+      type: http
+      scheme: bearer
+      bearerFormat: "{$request.body#sinkCredential.credentialType}"
   parameters:
     x-correlator:
       name: x-correlator
@@ -208,13 +219,13 @@ components:
         starttime:
           type: string
           format: date-time
-          description: Starting timestamp for counting the number of devices in the area. It must follow [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and must have time zone. Recommended format is yyyy-MM-dd'T'HH:mm:ss.SSSZ (i.e. which allows 2023-07-03T14:27:08.312+02:00 or 2023-07-03T12:27:08.312Z)
+          description: Starting timestamp for counting the number of devices in the area. It must follow [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and must have time zone.
           nullable: true
           example: "2023-07-03T14:27:08.312+02:00"
         endtime:
           type: string
           format: date-time
-          description: Ending timestamp for counting the number of devices in the area. It must follow [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and must have time zone. Recommended format is yyyy-MM-dd'T'HH:mm:ss.SSSZ (i.e. which allows 2023-07-04T14:27:08.312+02:00 or 2023-07-03T12:27:08.312Z)
+          description: Ending timestamp for counting the number of devices in the area. It must follow [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and must have time zone.
           nullable: true
           example: "2023-07-04T14:27:08.312+02:00"
         filter:
@@ -486,10 +497,10 @@ components:
           description: HTTP response status code
         code:
           type: string
-          description: Code given to this error
+          description: A human-readable code to describe the error
         message:
           type: string
-          description: Detailed error description
+          description: A human-readable description of what the event represents
   responses:
     Generic400:
       description: Bad Request
