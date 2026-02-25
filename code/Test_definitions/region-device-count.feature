@@ -273,4 +273,3 @@ Feature: CAMARA Region Device Count API vwip - Operations for device count in sp
     And the response property "$.status" is 400
     And the response property "$.code" is "REGION_DEVICE_COUNT.UNSUPPPORTED_REQUEST"
     And the response property "$.message" contains a user friendly text
-
